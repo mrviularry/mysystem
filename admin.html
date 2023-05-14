@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Interface</title>
+    <style>
+        /* Add your CSS here */
+    </style>
+</head>
+<body>
+    <button onclick="generate()">Generate new license key</button>
+    <div id="key"></div>
+    <input type="text" id="deleteKey" placeholder="Key to delete">
+    <button onclick="deleteKey()">Delete key</button>
+    <script>
+        async function generate() {
+            const res = await fetch('http://localhost:3000/generate');
+            const key = await res.json();
+            document.getElementById('key').innerText = key;
+        }
+
+        async function deleteKey() {
+            const key = document.getElementById('deleteKey').value;
+            const res = await fetch(`http://localhost:3000/delete/${key}`);
+            const message = await res.json();
+            alert(message.message);
+        }
+    </script>
+</body>
+</html>
