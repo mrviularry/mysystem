@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Interface</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: purple;
+            color: white;
+        }
+        .container {
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <button class="btn btn-primary" onclick="generate()">Generate new license key</button>
+                <div id="key"></div>
+                <input type="text" id="deleteKey" class="form-control" placeholder="Key to delete">
+                <button class="btn btn-danger" onclick="deleteKey()">Delete key</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        async function generate() {
+            const res = await fetch('http://localhost:3000/generate');
+            const key = await res.json();
+            document.getElementById('key').innerText = key;
+        }
+
+        async function deleteKey() {
+            const key = document.getElementById('deleteKey').value;
+            const res = await fetch(`http://localhost:3000/delete/${key}`);
+            const message = await res.json();
+            alert(message.message);
+        }
+    </script>
+</body>
+</html>
