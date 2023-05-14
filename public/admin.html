@@ -26,14 +26,14 @@
     </div>
     <script>
         async function generate() {
-            const res = await fetch('http://localhost:3000/generate');
+            const res = await fetch('/generate');
             const key = await res.json();
             document.getElementById('key').innerText = key;
         }
 
         async function deleteKey() {
             const key = document.getElementById('deleteKey').value;
-            const res = await fetch(`http://localhost:3000/delete/${key}`);
+            const res = await fetch(`/delete/${key}`);
             const message = await res.json();
             alert(message.message);
         }
